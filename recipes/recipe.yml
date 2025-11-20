@@ -3,43 +3,128 @@
 # image will be published to ghcr.io/<user>/<name>
 name: blueberry-os
 # description will be included in the image's metadata
-description: This is my personal OS image.
+description: This is my personal bluefin image.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 42 # latest is also supported if you want new updates ASAP
+base-image: ghcr.io/ublue-os/bluefin:stable
+image-version: 43 # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
 modules:
   - type: files
-    files:
+    files: 
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
-  - type: dnf
-    repos:
-      copr:
-        - atim/starship
+  - type: rpm-ostree
+    repos: https://repo.librewolf.net/librewolf.repo
+    
     install:
       packages:
-        - micro
-        - starship
+        - librewolf
+
     remove:
       packages:
-        # example: removing firefox (in favor of the flatpak)
-        # "firefox" is the main package, "firefox-langpacks" is a dependency
         - firefox
-        - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
+        - firefox-langpacks
+        - geoclue
+        - samba
+        - samba-common
+        - samba-client-libs
+        - samba-common-libs
+        - samba-client
+        - samba-libs
+        - samba-dcerpc
+        - samba-winbind-modules
+        - samba-ldb-ldap-modules
+        - samba-common-tools
+        - samba-winbind
+        - samba-winbind-clients
+        - firewall-config
+        - gnome-browser-connector
+        - epiphany-runtime
+        - f43-backgrounds-gnome
+        - gnome-user-share
+        - desktop-backgrounds-gnome
+        - pinentry-gnome3
+        - malcontent-control
+        - orca
+        - gnome-tour
+        - gnome-shell-extension-common
+        - gnome-shell-extension-apps-menu
+        - gnome-shell-extension-launch-new-instance
+        - gnome-shell-extension-places-menu
+        - gnome-shell-extension-window-list
+        - gnome-shell-extension-gsconnect
+        - nautilus-gsconnect
+        - input-remapper
+        - gnome-classic-session
+        - zsh
+        - fish
+        - f43-backgrounds-base-43
+        - fedora-workstation-backgrounds
+        - gnome-backgrounds
+        - gnome-tweaks
 
   - type: default-flatpaks
     configurations:
       - notify: true # Send notification after install/uninstall is finished (true/false)
         scope: system
         # If no repo information is specified, Flathub will be used by default
-        install: # system flatpaks we want all users to have and not remove
-          - org.mozilla.firefox
+        install:
+          - org.bulmia.pineapple-pictures
+          - io.github.peazip.Peazip
+          - org.gnome.gedit
+          
+        remove:
+          - com.github.PintaProject.Pinta.Locale
+          - com.github.rafostar.Clapper
+          - com.github.rafostar.Clapper.Enhancers
+          - com.github.PintaProject.Pinta
+          - com.github.rafostar.Clapper.Locale
+          - io.github.kolunmi.Bazaar
+          - io.github.kolunmi.Bazaar.Locale
+          - org.gnome.Calculator
+          - org.gnome.Calculator.Locale
+          - org.gnome.Calendar
+          - org.gnome.Calendar.Locale
+          - org.gnome.Characters
+          - org.gnome.Characters.Locale
+          - org.gnome.Connections
+          - org.gnome.Connections.Locale
+          - org.gnome.Contacts
+          - org.gnome.Contacts.Locale
+          - org.gnome.DejaDup
+          - org.gnome.DejaDup.Locale
+          - org.gnome.FileRoller 
+          - org.gnome.FileRoller.Locale
           - org.gnome.Loupe
-      - scope: user # Also add Flathub user repo, but no user packages
+          - org.gnome.Loupe.Locale
+          - org.gnome.Maps
+          - org.gnome.Maps.Locale
+          - org.gnome.NautilusPreviewer
+          - org.gnome.NautilusPreviewer.Locale
+          - org.gnome.Papers
+          - org.gnome.Papers.Locale
+          - org.gnome.SimpleScan
+          - org.gnome.SimpleScan.Locale
+          - org.gnome.TextEditor
+          - org.gnome.TextEditor.Locale
+          - org.gnome.Weather
+          - org.gnome.Weather.Locale
+          - org.gnome.baobab
+          - org.gnome.baobab.Locale
+          - org.gnome.clocks
+          - org.gnome.clocks.Locale
+          - org.gnome.font-viewer
+          - org.gnome.font_viewer.Locale
+          - org.gtk.Gtk3theme.adw-gtk3
+          - org.gtk.Gtk3theme.adw-gtk3-dark
+          - org.gnome.Firmware
+          - org.gnome.Firmware.Locale
+          - org.gnome.baobab
+          - org.gnome.baobab.Locale
+          
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
