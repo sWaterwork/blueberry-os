@@ -12,7 +12,7 @@ image-version: 43 # latest is also supported if you want new updates ASAP
 # module configuration, executed in order
 # you can include multiple instances of the same module
 modules:
-  - type: files
+  - type: containerfile@v1 bling@v1 brew os-release@latest dnf@v1 gnome-extensions@v1 script@latest brew@latest containerfile@latest bling default-flatpaks@v1 chezmoi@v1 kargs@latest chezmoi rpm-ostree@latest gschema-overrides@v1 os-release soar@latest signing@v1 default-flatpaks yafti@v1 dnf@latest soar@v1 rpm-ostree systemd@v1 yafti@latest fonts@latest gschema-overrides script@v1 os-release@v1 copy@latest signing systemd containerfile font@v1 bling@latest akmods default-flatpaks@latest chezmoi@latest yafti copy@v1 default-flatpaks@v2 initramfs@latest script soar kargs initramfs@v1 justfiles@v1 gschema-overrides@latest kargs@v1 systemd@latest gnome-extentions fonts initramfs brew@v1 rpm-ostree@v1 akmods@latest dnf justfiles signing@latest copy justfiles@latest akmods@v1
     files: 
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
