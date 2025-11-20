@@ -17,7 +17,7 @@ To rebase an existing atomic Fedora installation to the latest build:
   ```
 - Reboot to complete the rebase:
   ```
-  sudo systemctl reboot
+  sudo reboot
   ```
 - Then rebase to the signed image, like so:
   ```
