@@ -17,15 +17,12 @@ modules:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
-  - type: rpm-ostree
     repos: https://repo.librewolf.net/librewolf.repo
     
     install:
-      array:
         - librewolf
 
     remove:
-      array:
         - firefox
         - firefox-langpacks
         - geoclue
